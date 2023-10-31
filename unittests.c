@@ -27,7 +27,7 @@ UTEST(mtxio, read_1d_mtx)
     double b_sol[] = {2, 29, 12, 6};
     
     char filename[] = "tests/b_io.mtx";
-    double b[TEST_LEN];
+    double b[LEN];
 
     int size_1d = read_1d_mtx(filename, b);
 
@@ -44,7 +44,7 @@ UTEST(mtxio, read_1d_mtx)
 UTEST(mtxio, write_1d_mtx)
 {
     char filename_in[] = "tests/b_io.mtx";
-    double b[TEST_LEN];
+    double b[LEN];
     int size_1d = read_1d_mtx(filename_in, b);
 
     char filename_out[] = "tests/b_tmp.mtx";
@@ -298,7 +298,7 @@ UTEST(main, sum)
 
     ASSERT_EQ(ret, 0);
 
-    ret = system("rm tmp.txt sub.txt sol.txt x_test.mtx");
+    ret = system("rm tmp.txt sub.txt sol.txt");
     (void)ret;
 }
 
@@ -343,7 +343,7 @@ UTEST(main, average_filter)
     ret = system("./filter average_filter x_test.mtx out_test.mtx > sub.txt");
     ASSERT_EQ(ret, 0);
         
-    ret = system("diff -w sub.txt sol.txt > tmp.txt");
+    ret = system("diff -w sub.txt sol.txt");
     ASSERT_EQ(ret, 0);
 
     double y_sol[LEN];
@@ -356,8 +356,6 @@ UTEST(main, average_filter)
 
     ASSERT_LT(norm, 10e-12);
 
-    ret = system("rm x_test.mtx y_test.mtx "
-                 "out_test.mtx sub.txt sol.txt tmp.txt");    
     (void)ret;
 }
 
